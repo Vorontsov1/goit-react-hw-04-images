@@ -1,15 +1,20 @@
-import  {Component} from 'react';
-import './Modal.module.css';
+import React, {Component} from 'react';
+import style from './Modal.module.css';
 
 export default class Modal extends Component {
+
     componentDidMount() {
         console.log('Modal componentDidMount');
     }
 
+    componentWillUnmount() {
+        console.log('componentWillUnmount');
+    }
+
     render () {
         return(
-            <div className='Modal-backdrop'>
-                <div className='Modal-content'>{this.props.children}</div>
+            <div className={style.overlay}>
+                <div className={style.content}>{this.props.children}</div>
             </div>
         );
     }
