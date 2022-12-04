@@ -1,6 +1,6 @@
+import axios from 'axios';
 import  React,  {Component}  from "react";
 import Modal from "./Modal/Modal";
-import axios from 'axios';
 import Button from './Button/Button';
 import Searchbar from "./Searchbar/Searchbar";
 import ImageGallery from "./ImageGallery/ImageGallery";
