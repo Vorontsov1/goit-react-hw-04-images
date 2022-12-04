@@ -20,8 +20,13 @@ const Loader = props => (
 Loader.metadata = {
   name: 'RioF',
   github: 'clariokids',
-  description: 'Three Dots',
+  description: 'Three dots',
   filename: 'Loader',
 };
 
 export default Loader;
+  
+
+
+
+

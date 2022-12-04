@@ -13,7 +13,7 @@ const Searchbar = ({onSubmit}) => {
       type="text"
       autoComplete="off"
       autoFocus
-      placeholder="Search images and photos"
+      placeholder="Шукай більше)"
       name='searchName'
     />
   </form>
@@ -21,3 +21,6 @@ const Searchbar = ({onSubmit}) => {
     );
 };
 export default Searchbar;
+
+
+
