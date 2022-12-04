@@ -1,8 +1,11 @@
-import   {Component}  from "react";
+import  React,  {Component}  from "react";
 import Modal from "./Modal/Modal";
 import axios from 'axios';
 import Button from './Button/Button';
-// import SearchBar from './Searchbar';
+import Searchbar from "./Searchbar/Searchbar";
+import ImageGallery from "./ImageGallery/ImageGallery";
+import Loader from "./Loader/Loader";
+
 
 
 const KEY = '31783345-18b5ac2b353c5eba4d5cdf805';
@@ -92,12 +95,23 @@ componentDidUpdate(pP, pS) {
 }
 
 render () {
-  const {showModal, image} = this.state;
-return(
-  <div className="App">
-     <Button onClick={this.handleLoadMore} />
-    {showModal && <Modal onClose={this.loadMore} image={image}/>}
-  </div>
-    );
-   }
-  }
+  const {collection, searchName, isLoading, showModal, image} = this.state;
+
+  return (
+    <div className="App">
+      <Searchbar onSubmit={this.handleSubmit} />
+      <ImageGallery
+        collection={collection}
+        searchName={searchName}
+        onClick={this.openImage}
+      />
+      {isLoading ? (
+        <Loader />
+      ) : (
+        collection.length !== 0 && <Button onClick={this.handleLoadMore} />
+      )}
+      {showModal && <Modal onClose={this.toggleModal} image={image} />}
+    </div>
+  );
+}
+}
