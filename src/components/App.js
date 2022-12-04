@@ -1,10 +1,10 @@
 import axios from 'axios';
 import  React,  {Component}  from "react";
-import Modal from "./Modal/Modal";
 import Button from './Button/Button';
 import Searchbar from "./Searchbar/Searchbar";
 import ImageGallery from "./ImageGallery/ImageGallery";
 import Loader from "./Loader/Loader";
+import Modal from "./Modal/Modal";
 
 
 
@@ -55,6 +55,7 @@ const BASE_URL = 'https://pixabay.com/api';
       isLoading: false,
     })),
     );
+    
     
 
     openImage = ({target}) => {

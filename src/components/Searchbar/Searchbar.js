@@ -2,17 +2,17 @@ import React from 'react';
 
 const Searchbar = ({onSubmit}) => {
     return (
-    <header class="Searchbar">
+    <header className="Searchbar">
   <form className='SearchForm' onSubmit={onSubmit}>
-    <button type="submit" class="SearchForm-button">
-      <span class="SearchForm-button-label">Search</span>
+    <button type="submit" className="SearchForm-button">
+      <span className="SearchForm-button-label">Search</span>
     </button>
 
     <input
       className='SearchForm-input'
       type="text"
-      autocomplete="off"
-      autofocus
+      autoComplete="off"
+      autoFocus
       placeholder="Search images and photos"
       name='searchName'
     />
