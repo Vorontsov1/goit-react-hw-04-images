@@ -1,5 +1,6 @@
 import   {Component}  from "react";
 import Modal from "./Modal/Modal";
+import fetchPictures from "./API/pixabayImages-api";
 
 
 class App extends Component  {
@@ -15,6 +16,7 @@ class App extends Component  {
 
 
   render() {
+    const {images, isLoading,showModal,largeImageUrl} = this.state;
     console.log('App render');
 const {showModal} = this.state;
 
