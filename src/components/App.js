@@ -8,6 +8,8 @@ import Modal from './Modal/Modal';
 import './App.css';
 
 const KEY = '31783345-18b5ac2b353c5eba4d5cdf805';
+const URL = 'https://pixabay.com/api/';
+
 
 export default class App extends Component {
   state = {
@@ -46,7 +48,7 @@ export default class App extends Component {
   getImages = () =>
     axios
       .get(
-        `https://pixabay.com/api/?q=${this.state.searchName}&page=${this.state.pageNum}&key=${KEY}&image_type=photo&orientation=horizontal&per_page=12`,
+        `${URL}?q=${this.state.searchName}&page=${this.state.pageNum}&key=${KEY}&image_type=photo&orientation=horizontal&per_page=12`,
       )
       .then(response =>
         this.setState(({ collection }) => ({
