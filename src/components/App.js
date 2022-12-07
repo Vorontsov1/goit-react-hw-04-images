@@ -56,7 +56,8 @@ export default class App extends Component {
           isLoading: false,
         })),
       )
-      .catch(error => console.log(error));
+      .catch(error => console.log(error))
+      .finally(() => this.setState({loading: false}));
 
   openImage = ({ target }) => {
     this.setState({
@@ -93,10 +94,11 @@ export default class App extends Component {
     if (prevState.image !== image) {
       this.toggleModal();
     }
+   
   }
 
   render() {
-    const { collection, searchName, isLoading, showModal, image } = this.state;
+    const { collection, searchName, isLoading, showModal, image} = this.state;
 
     return (
       <div className="App">
