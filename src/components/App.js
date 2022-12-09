@@ -19,6 +19,7 @@ export default class App extends Component {
     pageNum: 1,
     showModal: false,
     isLoading: false,
+    error: null,
   };
 
   handleSubmit = evt => {
@@ -56,7 +57,7 @@ export default class App extends Component {
           isLoading: false,
         })),
       )
-      .catch(error => console.log(error))
+      .catch(error => console.log('No more images',  error))
       .finally(() => this.setState({loading: false}));
 
   openImage = ({ target }) => {
