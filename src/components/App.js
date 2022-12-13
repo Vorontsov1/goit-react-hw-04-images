@@ -58,7 +58,7 @@ export default class App extends Component {
         })),
       )
       .catch(error => console.log('No more images',  error))
-      .finally(() => this.setState({isoading: false}));
+      .finally(() => this.setState({isLoading: false}));
 
   openImage = ({ target }) => {
     this.setState({
