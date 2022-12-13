@@ -109,11 +109,8 @@ export default class App extends Component {
           searchName={searchName}
           onClick={this.openImage}
         />
-        {isLoading ? (
-          <Loader />
-        ) : (
-          collection.length !== 0 && <Button onClick={this.handleLoadMore} />
-        )}
+        {isLoading && <Loader />}
+        {collection.length >=12 && <Button onClick={this.handleLoadMore} />}
         {showModal && <Modal onClose={this.toggleModal} image={image} />}
       </div>
     );
