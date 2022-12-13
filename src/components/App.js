@@ -99,7 +99,7 @@ export default class App extends Component {
   }
 
   render() {
-    const { collection, searchName, isLoading, showModal, image} = this.state;
+    const { collection, searchName, isLoading, showModal, total, image} = this.state;
 
     return (
       <div className="App">
@@ -112,7 +112,7 @@ export default class App extends Component {
         {isLoading ? (
           <Loader />
         ) : (
-          collection.length !== 0 && <Button onClick={this.handleLoadMore} />
+          collection.length <= total && <Button onClick={this.handleLoadMore} />
         )}
         {showModal && <Modal onClose={this.toggleModal} image={image} />}
       </div>
