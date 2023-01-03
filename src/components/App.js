@@ -1,118 +1,118 @@
-import axios from 'axios';
 import React, { Component } from 'react';
 import Button from './Button/Button';
 import ImageGallery from './ImageGallery/ImageGallery';
 import Loader from './Loader/Loader';
 import Searchbar from './Searchbar/Searchbar';
 import Modal from './Modal/Modal';
+import  * as API from '../services/api';
 import './App.css';
 
-const KEY = '31783345-18b5ac2b353c5eba4d5cdf805';
-const URL = 'https://pixabay.com/api/';
 
 
 export default class App extends Component {
+ 
+
   state = {
-    collection: [],
-    image: {},
+    page: 1,
     searchName: '',
-    pageNum: 1,
-    showModal: false,
+    largeImage: '',
+    items: [],
     isLoading: false,
     error: null,
-  };
+  }
 
-  handleSubmit = evt => {
-    evt.preventDefault();
-    const searchName = evt.target.searchName.value;
-    this.setState(prevState => {
-      if (prevState.searchName !== searchName) {
-        return {
-          collection: [],
-          searchName: searchName,
-          pageNum: 1,
-        };
-      } else {
-        return {
-          pageNum: prevState.pageNum + 1,
-        };
-      }
-    });
-  };
+  openModalOpen = (url) => {
+    this.setState({
+      largeImageURL: url,
+    })
+  }
+
+  onModalClose = () => {
+    this.setState({
+      largeImageURL: '',
+    })
+  }
+
+  handleSubmit = (searchName) => {
+    if(searchName.trim().length === 0) {
+      alert('Please, enter request');
+      return
+    }
+
+    this.setState({
+      searchName,
+      page: 1,
+      items: [],
+    })
+  }
 
   handleLoadMore = () => {
-    this.setState(({ pageNum }) => ({
-      pageNum: pageNum + 1,
-    }));
-  };
+    this.setState(prevState => ({
+      page: prevState.page + 1,
+    }))
+  }
 
-  getImages = () =>
-    axios
-      .get(
-        `${URL}?q=${this.state.searchName}&page=${this.state.pageNum}&key=${KEY}&image_type=photo&orientation=horizontal&per_page=12`,
-      )
-      .then(response =>
-        this.setState(({ collection }) => ({
-          collection: [...collection, ...response.data.hits],
-          isLoading: false,
-        })),
-      )
-      .catch(error => console.log('No more images',  error))
-      .finally(() => this.setState({isLoading: false}));
-
-  openImage = ({ target }) => {
-    this.setState({
-      image: {
-        searchName: this.state.searchName,
-        src: target.dataset.src,
-      },
-    });
-  };
-
-  toggleModal = () => {
-    this.setState(({ showModal }) => ({
-      showModal: !showModal,
-    }));
-  };
-
-  componentDidUpdate(prevProps, prevState) {
-    const { searchName, pageNum, isLoading, image } = this.state;
-
-    if (prevState.searchName !== searchName || prevState.pageNum !== pageNum) {
+  getImages = async (searchName, page) => {
+    try {
       this.setState({
         isLoading: true,
       });
-      this.getImages();
+      const images = await API.loadImage(searchName, page);
+
+      this.setState(prevState => ({
+        items: [...prevState.items, ...images],
+        isLoading: false,
+      }));
+      if (images.length === 0) {
+        alert("Sorry, we can't find anyting for your request. Please, enter another request");
+        }
+      } catch (error) {
+        this.setState({
+          error: error.message,
+        })
+      }  finally {
+        this.setState({
+          isLoading: false,
+        });
+      }
+    };
+  
+    componentDidUpdate (_, prevState) {
+      if (prevState.page !== this.state.page || 
+         prevState.searchName !== this.state.searchName) {
+        this.getImages(this.state.searchName, this.state.page);
+      }
     }
 
-    if (prevState.isLoading === true && !isLoading) {
-      window.scrollTo({
-        top: document.documentElement.scrollHeight,
-        behavior: 'smooth',
-      });
-    }
 
-    if (prevState.image !== image) {
-      this.toggleModal();
-    }
-   
-  }
 
   render() {
-    const { collection, searchName, isLoading, showModal, image} = this.state;
+    const { items, largeImageURL, searchName, isLoading, error} = this.state;
 
     return (
       <div className="App">
-        <Searchbar onSubmit={this.handleSubmit} />
-        <ImageGallery
-          collection={collection}
-          searchName={searchName}
-          onClick={this.openImage}
-        />
-        {isLoading && <Loader />}
-        {collection.length >=12 && <Button onClick={this.handleLoadMore} />}
-        {showModal && <Modal onClose={this.toggleModal} image={image} />}
-      </div>
+              <Searchbar onSubmit={this.handleSubmit} isLoading={isLoading}/>
+              {error && <p>{error}</p>}
+               <ImageGallery
+                 items={items}
+                 searchName={searchName}
+                 onClick={this.openModalOpen}
+               />
+               {isLoading && <Loader />}
+               {items.length >=12 && <Button onClick={this.handleLoadMore} />}
+              {largeImageURL && <Modal onClose={this.onModalClose} url={largeImageURL} />}
+             </div>
+
+
+      // <div className="App">
+      //   <Searchbar onSubmit={this.handleSubmit} isLoading={isLoading}/>
+      //   {error && <p>{error}</p>}
+      //   {items.length > 0 && 
+      //   <ImageGallery items={items} onClick={this.openModalOpen}/> }
+      //  { isLoading && <Loader />}
+      //  {items.length > 0 && <Button onClick={this.handleLoadMore} isLoading={isLoading}/>}
+      //  {largeImageURL && <Modal onClose={this.onModalClose} url={largeImageURL} />}
+      // </div>
     );
   }
 }

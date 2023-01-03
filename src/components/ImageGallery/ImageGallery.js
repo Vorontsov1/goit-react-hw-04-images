@@ -1,16 +1,16 @@
 import React from 'react';
 import ImageGalleryItem from '../ImageGalleryItem/ImageGalleryItem';
 
-const  ImageGallery = ({collection, searchName, onClick}) => {
+const  ImageGallery = ({items, searchName, onClick}) => {
     return (
         <div>
             <ul className='ImageGallery'>
-                {collection.map(({id, webformatURL, largeImageURL}) => (
+                {items.map(({id, webformatURL, largeURL}) => (
                     <li className='ImageGalleryItem' key={id}>
                         <ImageGalleryItem
                         webformatURL={webformatURL}
                         searchName={searchName}
-                        largeImageURL={largeImageURL}
+                        largeURL={largeURL}
                         onClick={onClick}
                         />
                     </li>
