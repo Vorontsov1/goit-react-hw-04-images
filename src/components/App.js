@@ -23,13 +23,13 @@ export default class App extends Component {
 
   openModalOpen = (url) => {
     this.setState({
-      largeImageURL: url,
+      largeImage: url,
     })
   }
 
   onModalClose = () => {
     this.setState({
-      largeImageURL: '',
+      largeImage: '',
     })
   }
 
@@ -87,32 +87,17 @@ export default class App extends Component {
 
 
   render() {
-    const { items, largeImageURL, searchName, isLoading, error} = this.state;
+    const { items, largeImage, isLoading, error} = this.state;
 
     return (
       <div className="App">
               <Searchbar onSubmit={this.handleSubmit} isLoading={isLoading}/>
               {error && <p>{error}</p>}
-               <ImageGallery
-                 items={items}
-                 searchName={searchName}
-                 onClick={this.openModalOpen}
-               />
+               {items.length > 0 &&  <ImageGallery items={items}  onClick={this.openModalOpen} />}
                {isLoading && <Loader />}
-               {items.length >=12 && <Button onClick={this.handleLoadMore} />}
-              {largeImageURL && <Modal onClose={this.onModalClose} url={largeImageURL} />}
+               {items.length > 0 && <Button onClick={this.handleLoadMore} isLoading={isLoading}/>}
+              {largeImage && (<Modal onClose={this.onModalClose} url={largeImage} />)}
              </div>
-
-
-      // <div className="App">
-      //   <Searchbar onSubmit={this.handleSubmit} isLoading={isLoading}/>
-      //   {error && <p>{error}</p>}
-      //   {items.length > 0 && 
-      //   <ImageGallery items={items} onClick={this.openModalOpen}/> }
-      //  { isLoading && <Loader />}
-      //  {items.length > 0 && <Button onClick={this.handleLoadMore} isLoading={isLoading}/>}
-      //  {largeImageURL && <Modal onClose={this.onModalClose} url={largeImageURL} />}
-      // </div>
     );
   }
 }
