@@ -33,7 +33,7 @@ export default class App extends Component {
     })
   }
 
-  handleSubmit = (searchName) => {
+  handleFormSubmit = (searchName) => {
     if(searchName.trim().length === 0) {
       alert('Please, enter request');
       return
@@ -91,7 +91,7 @@ export default class App extends Component {
 
     return (
       <div className="App">
-              <Searchbar onSubmit={this.handleSubmit} isLoading={isLoading}/>
+              <Searchbar onSubmit={this.handleFormSubmit} isLoading={isLoading}/>
               {error && <p>{error}</p>}
                {items.length > 0 &&  <ImageGallery items={items}  onClick={this.openModalOpen} />}
                {isLoading && <Loader />}
