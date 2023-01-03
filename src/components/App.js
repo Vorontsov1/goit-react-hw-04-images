@@ -95,7 +95,7 @@ export default class App extends Component {
               {error && <p>{error}</p>}
                {items.length > 0 &&  <ImageGallery items={items}  onClick={this.openModalOpen} />}
                {isLoading && <Loader />}
-               {items.length > 0 && <Button onClick={this.handleLoadMore} isLoading={isLoading}/>}
+               {items.length >= 12 && <Button onClick={this.handleLoadMore} isLoading={isLoading}/>}
               {largeImage && (<Modal onClose={this.onModalClose} url={largeImage} />)}
              </div>
     );
