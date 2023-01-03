@@ -4,7 +4,7 @@ const ImageGalleryItem = ({
     webformatURL,
     searchName,
     onClick,
-    largeImageURL,
+    largeURL,
 
 }) => {
     return (
@@ -13,7 +13,7 @@ const ImageGalleryItem = ({
     alt={searchName}
     className='ImageGalleryItem-image'
     onClick={onClick}
-    data-src={largeImageURL}
+    data-src={largeURL}
     />
     );
   };

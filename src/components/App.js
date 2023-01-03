@@ -21,9 +21,9 @@ export default class App extends Component {
     error: null,
   }
 
-  openModalOpen = (url) => {
+  openModalOpen = ({target}) => {
     this.setState({
-      largeImage: url,
+      largeImage: target.dataset.src,
     })
   }
 

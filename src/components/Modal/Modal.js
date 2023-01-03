@@ -31,11 +31,11 @@ export default class Modal extends Component {
 
     render () {
       const backdropClick = this.handleBackdropClick;
-      const {largeImage, alt} = this.props;
+      const {url, alt} = this.props;
         return createPortal (
             <div className="Overlay" onClick={backdropClick}>
                 <div className="Modal">
-                  <img src={largeImage} alt={alt}/>
+                  <img src={url} alt={alt}/>
                 </div>
             </div>,
             modalRoot,

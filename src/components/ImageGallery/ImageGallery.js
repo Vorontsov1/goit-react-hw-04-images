@@ -5,12 +5,12 @@ const  ImageGallery = ({items, searchName, onClick}) => {
     return (
         <div>
             <ul className='ImageGallery'>
-                {items.map(({id, webformatURL, largeURL}) => (
+                {items.map(({id, webformatURL, largeImageURL}) => (
                     <li className='ImageGalleryItem' key={id}>
                         <ImageGalleryItem
                         webformatURL={webformatURL}
                         searchName={searchName}
-                        largeURL={largeURL}
+                        largeURL={largeImageURL}
                         onClick={onClick}
                         />
                     </li>
