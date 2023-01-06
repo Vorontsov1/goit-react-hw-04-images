@@ -1,28 +1,28 @@
-import React, { Component } from "react";
+import  { useState } from "react";
 
 
-export default class Searchbar extends Component {
-    state = {
-        imgName: ''
-    }
-
-    handleChangeName = e => {
-        this.setState({ imgName: e.currentTarget.value.toLowerCase() })
-    };
-    handleSubmit = e => {
-        e.preventDefault();
-        this.props.onSubmit(this.state.imgName);
-        this.setState({ imgName: '' })
+export const Searchbar = ({onSubmit}) => {
     
+    const [imgName,setImgName] = useState('');
+    
+
+   const handleChangeName = e => {
+        setImgName(e.currentTarget.value.toLowerCase())
     };
 
+    const handleSubmit = e => {
+        e.preventDefault();
+        onSubmit(imgName);
+        setImgName('');
+     };
 
-    render() { 
+
+   
         return (
             <header className="Searchbar">
                 <form
                     className='SearchForm'
-                    onSubmit={this.handleSubmit}>
+                    onSubmit={handleSubmit}>
                   <button type="submit" className="SearchForm-button">
                     <span className="SearchForm-button-label">Search</span>
                   </button>
@@ -34,12 +34,11 @@ export default class Searchbar extends Component {
                         autoComplete="off"
                         autoFocus
                         placeholder="Search images and photos"
-                        onChange={this.handleChangeName}
-                        value={this.state.imgName}
+                        onChange={handleChangeName}
+                        value={imgName}
                     />
                 </form>
             </header>
         );
     }
         
-}
