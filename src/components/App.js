@@ -12,7 +12,7 @@ import './App.css';
 export const App = () => {
  const [page, setPage] = useState(1);
  const [searchName, setSearchName] = useState('');
- const [largeImage, setLargeName] = useState('');
+ const [largeImage, setLargeImage] = useState('');
  const [items, setItems] = useState([]);
  const [isLoading, setIsLoading] = useState(false);
  const [error, setError] = useState(null);
@@ -62,10 +62,10 @@ export const App = () => {
       <div className="App">
       <Searchbar onSubmit={handleFormSubmit} isLoading={isLoading}/>
       {error && <p>{error}</p>}
-       {items.length > 0 &&  <ImageGallery items={items}  onClick={setLargeName} />}
+       {items.length > 0 &&  <ImageGallery items={items}  onClick={setLargeImage} />}
        {isLoading && <Loader />}
        {items.length > 0 && <Button onLoadMore={() => setPage(prev => prev + 1)} isLoading={isLoading}/>}
-       {largeImage && (<Modal onClose={() => setLargeName('')} url={largeImage} />)}
+       {largeImage && (<Modal onClose={() => setLargeImage('')} url={largeImage} />)}
      </div>
     );
   };
