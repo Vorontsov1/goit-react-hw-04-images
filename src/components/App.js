@@ -64,7 +64,7 @@ export const App = () => {
       {error && <p>{error}</p>}
        {items.length > 0 &&  <ImageGallery items={items}  onClick={setLargeImage} />}
        {isLoading && <Loader />}
-       {items.length > 0 && <Button onLoadMore={() => setPage(prev => prev + 1)} isLoading={isLoading}/>}
+       {items.length >= 12 && <Button onLoadMore={() => setPage(prev => prev + 1)} isLoading={isLoading}/>}
        {largeImage && (<Modal onClose={() => setLargeImage('')} url={largeImage} />)}
      </div>
     );
