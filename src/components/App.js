@@ -1,74 +1,74 @@
-import React, { useState, useEffect } from 'react';
-import Button from './Button/Button';
-import ImageGallery from './ImageGallery/ImageGallery';
-import Loader from './Loader/Loader';
-import {Searchbar} from './Searchbar/Searchbar';
-import {Modal} from './Modal/Modal';
-import  * as API from '../services/api';
-import './App.css';
+// import React, { useState, useEffect } from 'react';
+// import Button from './Button/Button';
+// import ImageGallery from './ImageGallery/ImageGallery';
+// import Loader from './Loader/Loader';
+// import {Searchbar} from './Searchbar/Searchbar';
+// import {Modal} from './Modal/Modal';
+// import  * as API from '../services/api';
+// import './App.css';
 
 
 
-export const App = () => {
- const [page, setPage] = useState(1);
- const [searchName, setSearchName] = useState('');
- const [largeImage, setLargeImage] = useState('');
- const [items, setItems] = useState([]);
- const [isLoading, setIsLoading] = useState(false);
- const [error, setError] = useState(null);
+// export const App = () => {
+//  const [page, setPage] = useState(1);
+//  const [searchName, setSearchName] = useState('');
+//  const [largeImage, setLargeImage] = useState('');
+//  const [items, setItems] = useState([]);
+//  const [isLoading, setIsLoading] = useState(false);
+//  const [error, setError] = useState(null);
 
 
 
 
-  useEffect(() => {
-   if(searchName !== '') {
-    getImages(searchName, page);
-   }
-  }, [searchName, page])
+//   useEffect(() => {
+//    if(searchName !== '') {
+//     getImages(searchName, page);
+//    }
+//   }, [searchName, page])
 
 
-  const handleFormSubmit = (newSearchName) => {
-    if(newSearchName.trim().length === 0) {
-      alert('Please, enter request');
-      return
-    }
-    setSearchName(newSearchName);
-    setPage(1);
-    setItems([]);
-    }
+//   const handleFormSubmit = (newSearchName) => {
+//     if(newSearchName.trim().length === 0) {
+//       alert('Please, enter request');
+//       return
+//     }
+//     setSearchName(newSearchName);
+//     setPage(1);
+//     setItems([]);
+//     }
 
 
-  const getImages = async (searchName, page) => {
-    try {
-      setIsLoading(true);
-      const images = await API.loadImage(searchName, page);
-      setItems(prevState => [...prevState, ...images]);
-      setIsLoading(false);
+//   const getImages = async (searchName, page) => {
+//     try {
+//       setIsLoading(true);
+//       const images = await API.loadImage(searchName, page);
+//       setItems(prevState => [...prevState, ...images]);
+//       setIsLoading(false);
       
-      if (images.length === 0) {
-        alert("Sorry, we can't find anyting for your request. Please, enter another request");
-        }
-      } catch (error) {
-        setError(error.message);
-        } finally {
-        setIsLoading(false) 
-      }
-    };
+//       if (images.length === 0) {
+//         alert("Sorry, we can't find anyting for your request. Please, enter another request");
+//         }
+//       } catch (error) {
+//         setError(error.message);
+//         } finally {
+//         setIsLoading(false) 
+//       }
+//     };
     
   
  
 
-    return (
-      <div className="App">
-      <Searchbar onSubmit={handleFormSubmit} isLoading={isLoading}/>
-      {error && <p>{error}</p>}
-       {items.length > 0 &&  <ImageGallery items={items}  onClick={setLargeImage} />}
-       {isLoading && <Loader />}
-       {items.length >= 12 && <Button onLoadMore={() => setPage(prev => prev + 1)} isLoading={isLoading}/>}
-       {largeImage && (<Modal onClose={() => setLargeImage('')} url={largeImage} />)}
-     </div>
-    );
-  };
+//     return (
+//       <div className="App">
+//       <Searchbar onSubmit={handleFormSubmit} isLoading={isLoading}/>
+//       {error && <p>{error}</p>}
+//        {items.length > 0 &&  <ImageGallery items={items}  onClick={setLargeImage} />}
+//        {isLoading && <Loader />}
+//        {items.length >= && <Button onLoadMore={() => setPage(prev => prev + 1)} isLoading={isLoading}/>}
+//        {largeImage && (<Modal onClose={() => setLargeImage('')} url={largeImage} />)}
+//      </div>
+//     );
+//   };
 
 
 
@@ -175,3 +175,80 @@ export const App = () => {
 //     );
 //   }
 // }
+
+
+import React, { useState, useEffect } from 'react';
+import Button from './Button/Button';
+import ImageGallery from './ImageGallery/ImageGallery';
+import Loader from './Loader/Loader';
+import {Searchbar} from './Searchbar/Searchbar';
+import {Modal} from './Modal/Modal';
+import * as API from '../services/api';
+import './App.css';
+
+  export const App = () => {
+  const [page, setPage] = useState(1);
+  const [searchName, setSearchName] = useState('');
+  const [largeImage, setLargeImage] = useState('');
+  const [items, setItems] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    getImages(searchName, page);
+  }, [page, searchName]);
+
+
+  const openModalOpen = ({ target }) => {
+    setLargeImage(target.dataset.src);
+  }
+
+  const onModalClose = () => {
+    setLargeImage('');
+  }
+
+  const handleFormSubmit = (searchName) => {
+    if (searchName.trim().length === 0) {
+      alert('Please, enter request');
+      return;
+    }
+
+    setSearchName(searchName);
+    setPage(1);
+    setItems([]);
+  }
+
+  const handleLoadMore = () => {
+    setPage(page + 1);
+  }
+
+  const getImages = async (searchName, page) => {
+    try {
+      setIsLoading(true);
+      const images = await API.loadImage(searchName, page);
+
+      setItems([...items, ...images]);
+      setIsLoading(false);
+      if (images.length === 0) {
+        alert("Sorry, we can't find anyting for your request. Please, enter another request");
+      }
+    } catch (error) {
+      setError(error.message);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  return (
+    <div className="App">
+      <Searchbar onSubmit={handleFormSubmit} isLoading={isLoading} />
+      {error && <p>{error}</p>}
+      {items.length > 0 && <ImageGallery items={items} onClick={openModalOpen} />}
+      {isLoading && <Loader />}
+      {items.length >= 12 && <Button onClick={handleLoadMore} isLoading={isLoading} />}
+      {largeImage && <Modal onClose={onModalClose} url={largeImage} />}
+    </div>
+  );
+}
+
+
