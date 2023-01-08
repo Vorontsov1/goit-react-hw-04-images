@@ -199,7 +199,22 @@ import './App.css';
        // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, searchName]);
 
+  const getImages = async (searchName, page) => {
+    try {
+      setIsLoading(true);
+      const images = await API.loadImage(searchName, page);
 
+      setItems([...items, ...images]);
+      setIsLoading(false);
+      if (images.length === 0) {
+        alert("Sorry, we can't find anyting for your request. Please, enter another request");
+      }
+    } catch (error) {
+      setError(error.message);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   const openModalOpen = ({ target }) => {
     setLargeImage(target.dataset.src);
@@ -224,22 +239,7 @@ import './App.css';
     setPage(page + 1);
   }
 
-  const getImages = async (searchName, page) => {
-    try {
-      setIsLoading(true);
-      const images = await API.loadImage(searchName, page);
-
-      setItems([...items, ...images]);
-      setIsLoading(false);
-      if (images.length === 0) {
-        alert("Sorry, we can't find anyting for your request. Please, enter another request");
-      }
-    } catch (error) {
-      setError(error.message);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+ 
 
   return (
     <div className="App">

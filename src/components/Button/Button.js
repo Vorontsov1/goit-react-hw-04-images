@@ -1,12 +1,12 @@
 import React from 'react';
 
-const Button = ({onLoadMore, isLoading}) => {
+const Button = ({onClick, isLoading}) => {
     return (
         <div className='LoadMoreButton'>
           <button 
           type='button' 
           className='Button' 
-          onClick={onLoadMore}
+          onClick={onClick}
           disabled={isLoading}>
               Load more
           </button>
