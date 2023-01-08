@@ -177,7 +177,7 @@
 // }
 
 
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import Button from './Button/Button';
 import ImageGallery from './ImageGallery/ImageGallery';
 import Loader from './Loader/Loader';
@@ -196,7 +196,9 @@ import './App.css';
 
   useEffect(() => {
     getImages(searchName, page);
+       // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, searchName]);
+
 
 
   const openModalOpen = ({ target }) => {
