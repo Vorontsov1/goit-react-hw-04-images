@@ -195,6 +195,9 @@ import './App.css';
   const [error, setError] = useState(null);
 
   useEffect(() => {
+    if(searchName === '') {
+      return
+    }
     getImages(searchName, page);
        // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, searchName]);
