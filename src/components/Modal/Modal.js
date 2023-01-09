@@ -1,5 +1,6 @@
 import  {useEffect} from 'react';
 import { createPortal } from 'react-dom';
+import PropTypes from 'prop-types';
 
 const modalRoot = document.querySelector('#modal-root');
 
@@ -41,7 +42,12 @@ export const Modal = ({onClose, url}) => {
             </div>,
             modalRoot,
         );
-    }
+    };
+
+    Modal.propTypes = {
+      onClose: PropTypes.func.isRequired,
+      url: PropTypes.string.isRequired,
+    };
 
 
     

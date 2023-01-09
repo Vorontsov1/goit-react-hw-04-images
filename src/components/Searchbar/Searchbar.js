@@ -1,9 +1,10 @@
 import  { useState } from "react";
+import PropTypes from 'prop-types';
 
 
 export const Searchbar = ({onSubmit}) => {
     
-    const [imgName,setImgName] = useState('');
+    const [imgName, setImgName] = useState('');
     
 
    const handleChangeName = e => {
@@ -41,4 +42,9 @@ export const Searchbar = ({onSubmit}) => {
             </header>
         );
     }
+
+
+    Searchbar.propTypes = {
+        onSubmit: PropTypes.func.isRequired,
+    };
         
