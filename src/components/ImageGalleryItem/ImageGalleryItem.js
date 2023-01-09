@@ -23,7 +23,7 @@ const ImageGalleryItem = ({
     webformatURL: PropTypes.string.isRequired,
     searchName: PropTypes.string,
     onClick: PropTypes.func.isRequired,
-    largeURL: PropTypes.string.isRequired,
+    largeURL: PropTypes.string,
 
   }
 

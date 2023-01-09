@@ -25,7 +25,7 @@ const  ImageGallery = ({items, searchName, onClick}) => {
 
 ImageGallery.propTypes = {
     items: PropTypes.arrayOf(PropTypes.object),
-    searchName: PropTypes.string.isRequired,
+    searchName: PropTypes.string,
     onClick: PropTypes.func.isRequired,
 };
   
