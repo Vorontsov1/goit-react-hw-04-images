@@ -154,15 +154,20 @@ import './App.css';
     setLargeImage('');
   }
 
-  const handleFormSubmit = (searchName) => {
-    if (searchName.trim().length === 0) {
+  const handleFormSubmit = name => {
+    if (name.trim() === '') {
       alert('Please, enter request');
-      return;
+      setItems([]);
+      setPage(1);
+
+    } if (name !== searchName) {
+      setSearchName(name);
+      setItems([]);
+      setPage(1);
+    }  else {
+      setSearchName(name);
     }
 
-    setSearchName(searchName);
-    setPage(1);
-    setItems([]);
   }
 
   const handleLoadMore = () => {
