@@ -27,6 +27,7 @@ ImageGallery.propTypes = {
     items: PropTypes.arrayOf(PropTypes.object),
     searchName: PropTypes.string,
     onClick: PropTypes.func.isRequired,
+    id: PropTypes.number,
 };
   
 export default ImageGallery;
