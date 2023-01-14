@@ -14,7 +14,7 @@ export const Searchbar = ({onSubmit}) => {
     const handleSubmit = e => {
         e.preventDefault();
         onSubmit(imgName);
-        setImgName('');
+        // setImgName('');
      };
 
 
