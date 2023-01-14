@@ -126,7 +126,7 @@ import './App.css';
     }
     getImages(searchName, page);
        
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+ 
   }, [page, searchName]);
 
   const getImages = async (searchName, page) => {
@@ -134,7 +134,7 @@ import './App.css';
       setIsLoading(true);
       const images = await API.loadImage(searchName, page);
 
-      setItems([...items, ...images]);
+      setItems(prev => [...prev, ...images]);
       setIsLoading(false);
       if (images.length === 0) {
         alert("Sorry, we can't find anyting for your request. Please, enter another request");
