@@ -23,11 +23,21 @@ const  ImageGallery = ({items, searchName, onClick}) => {
 
 
 
+// ImageGallery.propTypes = {
+//     items: PropTypes.arrayOf(PropTypes.object),
+//     searchName: PropTypes.string,
+//     onClick: PropTypes.func.isRequired,
+//     id: PropTypes.number,
+// };
 ImageGallery.propTypes = {
-    items: PropTypes.arrayOf(PropTypes.object),
+    items: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        webformatURL: PropTypes.string.isRequired,
+        largeImageURL: PropTypes.string.isRequired
+      })
+    ).isRequired,
     searchName: PropTypes.string,
-    onClick: PropTypes.func.isRequired,
-    id: PropTypes.number,
-};
-  
+    onClick: PropTypes.func.isRequired
+  };
 export default ImageGallery;
